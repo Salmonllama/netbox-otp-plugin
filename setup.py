@@ -2,7 +2,7 @@ from setuptools import find_packages, setup
 
 setup(
     name='netbox_otp_plugin',
-    version='1.3.1',
+    version='1.3.4',
     description='OTP Login NetBox plugin',
     url='https://github.com/k1nky/netbox-otp-plugin',
     author='Andrey Shalashov',
@@ -12,10 +12,10 @@ setup(
     keywords='netbox otp login plugin',
     install_requires=[
         'qrcode',
-        'django-otp',
+        'django-otp==1.6.3',
         'django-qr-code',
     ],
-    packages=find_packages(),
+    packages=find_packages(exclude=["*tests.*", "*tests"]),
     package_data={
         "netbox_otp_plugin": [
             "templates/*",

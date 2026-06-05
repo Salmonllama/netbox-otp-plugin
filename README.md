@@ -8,9 +8,12 @@ Two-factor authentication for [NetBox](https://github.com/netbox-community/netbo
 
 | NetBox Version| Plugin Version|
 |---------------|---------------|
-| 4.1           | 1.3.0+        |
-| 4.0           | 1.1.0+        |
-| 3.1+          | 1.0.7         |
+| 4.4           | >= 1.3.4      |
+| 4.3           | >= 1.3.3      |
+| 4.2           | >= 1.3.2      |
+| 4.1           | >= 1.3.0      |
+| 4.0           | >= 1.1.0      |
+| 3.X           | 1.0.7         |
 
 
 ## Installation
@@ -30,7 +33,6 @@ PLUGINS = ['netbox_otp_plugin']
 
 Run migration:
 ```
-./manage.py makemigrations netbox_otp_plugin
 ./manage.py migrate netbox_otp_plugin
 ```
 
@@ -56,6 +58,7 @@ To reset user OTP device use the site or the command:
 The plugin has additional options:
 * `otp_required` - if set to True then two-factor authentication will be always required even if a user doesn't have an OTP device yet. False value required to authenticate users only with an OTP device attached only. Default: `True`.
 * `issuer` - the issuer parameter for the otpauth URL (see more https://github.com/google/google-authenticator/wiki/Key-Uri-Format). Default: `'Netbox'`.
+* `top_level_menu` - if set to True then the plugin menu will be placed at the top level of the menu.
 
 ### Example
 
@@ -68,7 +71,18 @@ PLUGINS_CONFIG = {
 }
 ```
 
-### Screenshots
+## OTP Self-registration
+
+To allow users to register their devices themselves, you need to grant them the following permissions:
+
+| Objects                   | Actions   | Constraints       |
+|---------------------------|-----------|-------------------|
+| Otp_Totp > TOTP Device    | view, add | {"user": "$user"} |
+| Users > User              | view      | {"pk": "$user"}   |
+
+Note: `otp_required` the plugin options should be set to `False`.
+
+## Screenshots
 
 ![alt text](assets/device_list.png "Device list")
 

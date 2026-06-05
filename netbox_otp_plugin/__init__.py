@@ -15,7 +15,7 @@ class OTPPluginConfig(PluginConfig):
     name = 'netbox_otp_plugin'
     verbose_name = 'OTP Login'
     description = 'OTP Login plugin'
-    version = '1.3.1'
+    version = '1.3.4'
     author = 'Andrey Shalashov'
     author_email = 'avshalashov@yandex.ru'
     min_version = '4.0.0'
@@ -43,7 +43,7 @@ class OTPPluginConfig(PluginConfig):
         # making any changes in the original settings.py
         setattr(netbox_settings, 'OTP_TOTP_ISSUER', user_config.get('issuer'))
 
-        parsed_netbox_version = tuple(map(int, netbox_version.split('.')))
+        parsed_netbox_version = tuple(map(int, netbox_version.split('-')[0].split('.')))
         # the AUTH_EXEMPT_PATHS setting has been removed since NetBox v4.1.0
         if parsed_netbox_version < (4, 1, 0):
             # the plugin login URL must be exempt from authentication
